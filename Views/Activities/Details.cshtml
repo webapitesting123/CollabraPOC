@@ -1,0 +1,91 @@
+﻿@model FabrikamResidences_Activities.Models.PortalActivity
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Activity</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+    </dl>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Attendee 
+            </th>
+            <th>
+                email
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Attendees.ToList()) {
+            <tr>
+                <td>
+                    @item.FirstName @item.LastName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Email)
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <form asp-action="AddAttendee">
+            <tr>
+                <td>
+                    <input type="hidden" asp-for="Id" name="PortalActivityId"/>  
+                                      
+                    <div class="form-group">
+                        <input name="FirstName" placeholder="First Name" class="form-control" />
+                        <input name="LastName" placeholder="Last Name" class="form-control" />
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <input name="Email" type="email" placeholder="Email" class="form-control" />
+                        
+                    </div>
+                </td>
+                <td>                                
+                    <div class="form-group">
+                        <input type="submit" value="Register" class="btn btn-default" />
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                </td>
+            </tr>
+        </form>
+    </tfoot>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
